@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: sda133213s-gitops
+  description: This is GitOps manifest for sda133213s   
+  links:
+    - url: https://www.redhat.com/en/solutions/trusted-software-supply-chain
+      title: Trusted Secure Supply Chain 
+      icon: dashboard
+      type: admin-dashboard
+  annotations:    
+    argocd/app-name: sda133213s
+    janus-idp.io/tekton: sda133213s 
+    backstage.io/kubernetes-id: sda133213s
+    backstage.io/kubernetes-namespace: sda133213s
+    backstage.io/techdocs-ref: dir:. 
+spec:
+  type: gitops
+  owner: user:guest 
+  lifecycle: experimental
+  dependsOn:
+    - component:sda133213s

@@ -1,0 +1,47 @@
+apiVersion: tekton.dev/v1
+kind: PipelineRun
+metadata:
+  name: sda133213s-on-pull-request
+  namespace: sda133213s
+  labels:
+    argocd/app-name: sda133213s
+    janus-idp.io/tekton: sda133213s
+    backstage.io/kubernetes-id: sda133213s
+    backstage.io/kubernetes-namespace: sda133213s 
+    app.kubernetes.io/part-of: sda133213s
+  annotations:
+    pipelinesascode.tekton.dev/on-event: "[pull_request]"
+    pipelinesascode.tekton.dev/on-target-branch: "[main]"
+    pipelinesascode.tekton.dev/max-keep-runs: "2"
+    pipelinesascode.tekton.dev/pipeline: "https://raw.githubusercontent.com/redhat-appstudio/tssc-sample-pipelines/main/new-for-dance/pipelines-helm/pipeline-promote.yaml"
+    # Todo: pac tasks need to be added after the pipleline has been finalized
+    # pipelinesascode.tekton.dev/task-0: "https://raw.githubusercontent.com/redhat-appstudio/tssc-sample-pipelines/main/pac/tasks/init.yaml"
+    # pipelinesascode.tekton.dev/task-1: "https://raw.githubusercontent.com/redhat-appstudio/tssc-sample-pipelines/main/pac/tasks/git-clone.yaml"
+    # pipelinesascode.tekton.dev/task-2: "https://raw.githubusercontent.com/redhat-appstudio/tssc-sample-pipelines/main/new-for-dance/tasks/task-verify-enterprise-contract.yaml"
+spec: 
+  params:
+  # Todo: params need to be updated after the pipeline has been finalized
+  - name: namespace
+    value: sda133213s
+  - name: gitops-repo-url
+    value: https://github.com/stephanie-cy/sda133213s-gitops
+  - name: source-repo-url
+    value: https://github.com/stephanie-cy/sda133213s
+  - name: component-id
+    value: sda133213s
+  - name: revision
+    value: '{{revision}}'
+  - name: argocd-host
+    value: argocd.example.com # hardcoded for now
+  pipelineRef:
+    name: sda133213s-gitops-promote
+  workspaces:
+    - name: workspace
+      volumeClaimTemplate: 
+        spec:
+          accessModes:
+          - ReadWriteOnce
+          resources:
+            requests:
+              storage: 1Gi
+ 

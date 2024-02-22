@@ -1,0 +1,12 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+commonLabels:         
+  argocd/app-name: sda133213s
+  janus-idp.io/tekton: sda133213s
+  backstage.io/kubernetes-id: sda133213s
+  backstage.io/kubernetes-namespace: sda133213s 
+  app.kubernetes.io/part-of: sda133213s
+resources: 
+- deployment.yaml
+- route.yaml
+- service.yaml

@@ -1,0 +1,6 @@
+apiVersion: "pipelinesascode.tekton.dev/v1alpha1"
+kind: Repository
+metadata:
+  name: sda133213s-repository
+spec:
+  url: https://github.com/stephanie-cy/sda133213s
